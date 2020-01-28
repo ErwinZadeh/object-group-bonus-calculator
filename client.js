@@ -1,3 +1,5 @@
+
+
 const employees = [
   {
     name: 'Atticus',
@@ -13,9 +15,9 @@ const employees = [
   },
   {
     name: 'Scout',
-    employeeNumber: '6243',
-    annualSalary: '74750',
-    reviewRating: 5
+    employeeNumber: '6243', //
+    annualSalary: '74750', 
+    reviewRating: 5 //plus 10%
   },
   {
     name: 'Robert',
@@ -41,3 +43,58 @@ const employees = [
 // Ask questions when you don't.
 
 console.log( employees );
+
+let totalCompensation = 0;
+let employeeTotalCompensation = [];
+
+function employeeSalaryPlusBonus (array) {
+  for (let i = 0; i < array.length; i++) {
+    const employee = array[i];
+    if (employee.reviewRating < 2) {
+      bonusPercentage = 0;
+    } else if (employee.reviewRating === 3) {
+      bonusPercentage = .04;
+    } else if (employee.reviewRating === 4) {
+      bonusPercentage = .06;
+    } else if (employee.reviewRating === 5) {
+      bonusPercentage = .10;
+    }//end else if
+
+    // if (employee.employeeNumber >= 1000 && employee.annualSalary < 65000) {
+    //   bonusPercentage += .04;
+    // } else if (employee.annualSalary > 6500) {
+    //   bonusPercentage -= .01
+    // }
+
+    
+    
+    if (employee.employeeNumber < 10000){
+      bonusPercentage = (bonusPercentage += .05);
+    }
+    if (employee.annualSalary > 65000){
+      bonusPercentage = (bonusPercentage - .01);
+    }
+    
+    
+    console.log('bonusPercentageeeeee', bonusPercentage);
+
+
+    if (bonusPercentage > .13){
+      bonusPercentage = .13;
+    } else if (bonusPercentage < 0){
+      bonusPercentage = 0;
+    }
+
+
+    console.log('bonusPercentage',bonusPercentage)
+    let totalCompensation = employee.annualSalary * (1 + bonusPercentage)
+    console.log(totalCompensation); 
+
+    employeeTotalCompensation.push(totalCompensation);
+
+    
+  } //end for
+}
+
+employeeSalaryPlusBonus(employees);
+
