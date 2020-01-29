@@ -1,5 +1,3 @@
-
-
 const employees = [
   {
     name: 'Atticus',
@@ -42,59 +40,61 @@ const employees = [
 // This is not a race. Everyone on your team should understand what is happening.
 // Ask questions when you don't.
 
-console.log( employees );
-
 let totalCompensation = 0;
-let employeeTotalCompensation = [];
+let totalCompensationOfEmployees = [];
 
-function employeeSalaryPlusBonus (array) {
-  for (let i = 0; i < array.length; i++) {
-    const employee = array[i];
+function employeeSalaryPlusBonus (employees) {
+
+  for (let i = 0; i < employees.length; i++) {
+    
+    const employee = employees[i];
+    
+    let bonusPercentage = 0
     if (employee.reviewRating < 2) {
       bonusPercentage = 0;
     } else if (employee.reviewRating === 3) {
-      bonusPercentage = .04;
+      bonusPercentage = 0.04;
     } else if (employee.reviewRating === 4) {
-      bonusPercentage = .06;
+      bonusPercentage = 0.06;
     } else if (employee.reviewRating === 5) {
-      bonusPercentage = .10;
-    }//end else if
-
-    // if (employee.employeeNumber >= 1000 && employee.annualSalary < 65000) {
-    //   bonusPercentage += .04;
-    // } else if (employee.annualSalary > 6500) {
-    //   bonusPercentage -= .01
-    // }
-
-    
+      bonusPercentage = 0.10;
+    } else {
+      bonusPercentage
+    }
     
     if (employee.employeeNumber < 10000){
-      bonusPercentage = (bonusPercentage += .05);
+      bonusPercentage += 0.05
+    } else {
+      bonusPercentage
     }
+
     if (employee.annualSalary > 65000){
-      bonusPercentage = (bonusPercentage - .01);
+      bonusPercentage -= 0.01
+    } else {
+      bonusPercentage
     }
-    
-    
-    console.log('bonusPercentageeeeee', bonusPercentage);
 
-
-    if (bonusPercentage > .13){
-      bonusPercentage = .13;
+    if (bonusPercentage > 0.13){
+      bonusPercentage = 0.13;
     } else if (bonusPercentage < 0){
       bonusPercentage = 0;
+    } else {
+      bonusPercentage
     }
 
+    console.log('bonusPercentage of this employee is: ',bonusPercentage)
 
-    console.log('bonusPercentage',bonusPercentage)
-    let totalCompensation = employee.annualSalary * (1 + bonusPercentage)
-    console.log(totalCompensation); 
+    let totalBonus = Number( employee.annualSalary * bonusPercentage );
+    let totalCompensation = Number( employee.annualSalary + totalBonus ); 
 
-    employeeTotalCompensation.push(totalCompensation);
+    console.log('total compensation of this employee is: ',totalCompensation); 
 
+    totalCompensationOfEmployees.push(totalCompensation);
     
   } //end for
 }
 
 employeeSalaryPlusBonus(employees);
+console.log(totalCompensationOfEmployees);
+
 
