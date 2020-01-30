@@ -13,9 +13,9 @@ const employees = [
   },
   {
     name: 'Scout',
-    employeeNumber: '6243', //
+    employeeNumber: '6243', 
     annualSalary: '74750', 
-    reviewRating: 5 //plus 10%
+    reviewRating: 5 
   },
   {
     name: 'Robert',
@@ -40,61 +40,75 @@ const employees = [
 // This is not a race. Everyone on your team should understand what is happening.
 // Ask questions when you don't.
 
-let totalCompensation = 0;
-let totalCompensationOfEmployees = [];
+// YOU SHOULD NOT NEED TO CHANGE ANYTHING ABOVE THIS POINT
 
-function employeeSalaryPlusBonus (employees) {
+// Take small steps! Don't write a for loop and two functions that do all of the calculations right away.
+// This problem is massive! Break the problem down. Use the debugger.
+// What is the fewest lines of code I can write and test to get just a little closer?
 
-  for (let i = 0; i < employees.length; i++) {
-    
-    const employee = employees[i];
-    
-    let bonusPercentage = 0
-    if (employee.reviewRating < 2) {
-      bonusPercentage = 0;
-    } else if (employee.reviewRating === 3) {
-      bonusPercentage = 0.04;
-    } else if (employee.reviewRating === 4) {
-      bonusPercentage = 0.06;
-    } else if (employee.reviewRating === 5) {
-      bonusPercentage = 0.10;
-    } else {
-      bonusPercentage
-    }
-    
-    if (employee.employeeNumber < 10000){
-      bonusPercentage += 0.05
-    } else {
-      bonusPercentage
-    }
+// This is not a race. Everyone on your team should understand what is happening.
+// Ask questions when you don't.
 
-    if (employee.annualSalary > 65000){
-      bonusPercentage -= 0.01
-    } else {
-      bonusPercentage
-    }
+console.log( employees );
 
-    if (bonusPercentage > 0.13){
-      bonusPercentage = 0.13;
-    } else if (bonusPercentage < 0){
-      bonusPercentage = 0;
-    } else {
-      bonusPercentage
-    }
+// ## Processing Employee Bonuses
 
-    console.log('bonusPercentage of this employee is: ',bonusPercentage)
+// Loop over the `employees` array and do the following:
+// * use each employee object as the input to the function described below.
+// * `console.log` the results of each iteration.
 
-    let totalBonus = Number( employee.annualSalary * bonusPercentage );
-    let totalCompensation = Number( employee.annualSalary + totalBonus ); 
+for (let i= 0; i < employees.length; i++){
+  bonusCalculator(employees[i]);
+}
+// ## Function Logic
 
-    console.log('total compensation of this employee is: ',totalCompensation); 
+// Write a declared function that takes in one **Employee** object (as an argument to the function), and returns a new **object** with the following properties:
 
-    totalCompensationOfEmployees.push(totalCompensation);
-    
-  } //end for
+function bonusCalculator(employee){
+  // console.log('this is employee', employee);
+  let newObject = {
+    name: employee.name,
+    bonusPercentage: 0,
+    totalCompensation: 0,
+    totalBonus: 0
+  }
+
+  // this block of code assigns bonus percentage to the new object
+  if (employee.reviewRating <= 2){
+    newObject.bonusPercentage = 0;
+  } else if (employee.reviewRating == 3){
+    newObject.bonusPercentage = .04;
+  } else if (employee.reviewRating == 4){
+    newObject.bonusPercentage = .06;
+  } else if (employee.reviewRating == 5){
+    newObject.bonusPercentage = .10;
+  }
+
+  if (employee.employeeNumber.length == 4 && employee.reviewRating > 2){
+    newObject.bonusPercentage += .05;
+  }
+  
+  if(employee.annualSalary > 65000){
+    // bring bonusPercentage down .01;
+    newObject.bonusPercentage -= .01;
+  }
+
+  if (newObject.bonusPercentage > .13){
+    newObject.bonusPercentage = .13;
+  } else if (newObject.bonusPercentage < 0){
+    newObject.bonusPercentage = 0;
+  }
+
+  newObject.totalBonus = Number(employee.annualSalary) * newObject.bonusPercentage;
+  newObject.totalCompensation = Number(employee.annualSalary) + newObject.totalBonus;
+
+  console.log('final object', newObject);
 }
 
-employeeSalaryPlusBonus(employees);
-console.log(totalCompensationOfEmployees);
+// * The `totalCompensation` property should be the adjusted annual compensation (base annual + bonus)
+// * The `totalBonus` should be the employee's total bonus rounded to the nearest dollar.
 
+// ### Individual Bonus calculation
+// - No bonus can be above 13% or below 0% total.
 
+// NOTE: You may abstract out this bonus calculation into a second function if you like, but this is not mandatory.
